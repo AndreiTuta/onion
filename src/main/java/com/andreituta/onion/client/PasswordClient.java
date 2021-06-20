@@ -28,7 +28,7 @@ public class PasswordClient {
 		String passType = strongPass ? "strong" : "simple";
 		log.info("Making a call to Dinopass for a {} password", passType);
 		ResponseEntity<String> ex = template.getForEntity(DINOPASS_ENDPOINT + passType, String.class);
-		if (ex.getStatusCode() == HttpStatus.OK) {
+		if (ex != null && ex.getStatusCode() == HttpStatus.OK) {
 			resp = buildPasswordResponse(ex.getBody());
 			log.info("Fetched new {} password from Dinopass: {}", passType, resp.getPassword());
 		}
